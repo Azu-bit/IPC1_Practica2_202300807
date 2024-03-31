@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package Clases;
 
-/**
- *
- * @author Manager
- */
-public class Motocicleta {
+public class Motocicleta extends Transporte {
 
-    
-    
+    public Motocicleta(String nombre) {
+        super(nombre, 6, 0.1, "C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\imagenes\\moto1.gif");
+    }
 }

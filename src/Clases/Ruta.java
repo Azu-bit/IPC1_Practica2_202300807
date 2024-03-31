@@ -1,20 +1,21 @@
 package Clases;
 //import clases.ListaU;
+import java.io.Serializable;
 
-public class Ruta {
+public class Ruta implements Serializable{
     private int id;
     private String Inicio;
     private String Final;
-    private String Distancia;
+    private double Distancia;
     
     public Ruta() {
         this.id = 0;
         this.Inicio = "";
         this.Final = "";
-        this.Distancia = "";
+        this.Distancia = 0.0;
     }
     
-    public Ruta (String i, String f, String d){
+    public Ruta (String i, String f, double d){
         this.Inicio = i;
         this.Final = f;
         this.Distancia = d;
@@ -44,11 +45,11 @@ public class Ruta {
         this.Final = Final;
     }
 
-    public String getDistancia() {
+    public double getDistancia() {
         return Distancia;
     }
 
-    public void setDistancia(String Distancia) {
+    public void setDistancia(double Distancia) {
         this.Distancia = Distancia;
     }
 }

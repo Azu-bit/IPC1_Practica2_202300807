@@ -1,8 +1,10 @@
 package Clases;
 
+import Clases.Ruta;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Lista {
+public class Lista implements Serializable{
     ArrayList<Ruta> listaRutas;
     ArrayList<Viaje> listaViajes;
     ArrayList<Transporte> listaTransporte;
@@ -15,8 +17,24 @@ public class Lista {
         this.listaPiloto = new ArrayList<>();
     }
     
-    public void guardarRutas(String i, String f, String d) {
+    public ArrayList<Ruta> getRutas() {
+        return listaRutas;
+    }
+    
+    public void guardarRutas(String i, String f, double d) {
         Ruta ruta = new Ruta(i, f, d);
+        this.listaRutas.add(ruta);
+    }
+    
+    public ArrayList<Piloto> getPilotos() {
+        return listaPiloto;
+    }
+
+    public ArrayList<Transporte> getTransportes() {
+        return listaTransporte;
+    }
+    
+    public void agregarRuta(Ruta ruta) {
         this.listaRutas.add(ruta);
     }
     
@@ -43,7 +61,41 @@ public class Lista {
         return listaRutaIn.toArray(arregloInicio);
     }
     
+    public String[] obtenerPFinal() {
+        ArrayList<String> listaRutaFin = new ArrayList<>();
+        
+        for(Ruta ruta: this.listaRutas) {
+            listaRutaFin.add(ruta.getFinal());
+        }
+        String []arregloFinal = new String[listaRutaFin.size()];
+        return listaRutaFin.toArray(arregloFinal);
+    }
     
+    public String[] obtenerTransportel() {
+        ArrayList<String> listaTransporte = new ArrayList<>();
+        
+        for(Transporte trans: this.listaTransporte) {
+            //listaTransporte.add(trans);
+        }
+        String []arregloInicio = new String[listaTransporte.size()];
+        return listaTransporte.toArray(arregloInicio);
+    }
     
+    public Transporte obtenerObjTrans(String nombre) {
+        for(Transporte trans: this.listaTransporte) {
+            if(trans.getNombre().equals(nombre)) {
+                return trans;
+            }
+        }
+        return null;
+    }
     
+    public double obtenerDis(String inicio, String fin) {       
+        for(Ruta rutas: Undrive.Inicio.getListaRutas()) {
+            if(rutas.getInicio().equals(inicio) && rutas.getFinal().equals(fin)) {
+                return rutas.getDistancia();
+            }
+        }
+        return 0;
+    } 
 }

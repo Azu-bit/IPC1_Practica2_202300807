@@ -1,28 +1,46 @@
 package Serializacion;
 
 import Clases.Ruta;
+import Ventanas.Administrador;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class CargarRuta extends javax.swing.JFrame {
-    LinkedList<Ruta> rutas = new LinkedList<>();
+    ArrayList<Ruta> listarutas = new ArrayList<>();
     int maxId = 0;   //Contador para el Id de Ruta
     
-    public LinkedList<Ruta> getRutas() {
-        return rutas;
+    public ArrayList<Ruta> getRutas() {
+        return listarutas;
     }
     
     public CargarRuta() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            this.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    Administrador admi = new Administrador();
+                    admi.setVisible(true);
+                    dispose(); // Cierra la ventana actual
+                }
+            });     
+            
     }
     
     @SuppressWarnings("unchecked")
@@ -181,9 +199,16 @@ public class CargarRuta extends javax.swing.JFrame {
         ruta.setId(maxId++);
         ruta.setInicio(Inicio.getText());
         ruta.setFinal(Fin.getText());
-        ruta.setDistancia(Distancia.getText());
+        //ruta.setDistancia(Distancia.getText());
+        try {
+            double distancia = Double.parseDouble(Distancia.getText());
+            ruta.setDistancia(distancia);
+        } catch (NumberFormatException e) {
+            System.out.println("La distancia debe ser un numero");
+            return;
+        }
         
-        rutas.add(ruta);
+        listarutas.add(ruta);
         
         Inicio.setText("");
         Fin.setText("");
@@ -207,17 +232,8 @@ public class CargarRuta extends javax.swing.JFrame {
     }//GEN-LAST:event_cargarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        JFileChooser selecArchivo = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos csv", "csv");
-        
-        selecArchivo.setFileFilter(filtro);
-        
-        int seleccion = selecArchivo.showOpenDialog(this);
-        
-        if(seleccion == JFileChooser.APPROVE_OPTION) {
-            File archivo = selecArchivo.getSelectedFile();
-            GuardarArchivo(archivo);
-        }
+        GuardarArchivo();
+        GuardarArchivoBin();
     }//GEN-LAST:event_guardarActionPerformed
 
     private void editardistanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editardistanciaActionPerformed
@@ -226,24 +242,22 @@ public class CargarRuta extends javax.swing.JFrame {
         
         int id = Integer.parseInt(idInput);
         
-        if(id >= 0 && id < rutas.size()) {
-            Ruta ruta = rutas.get(id);
-            ruta.setDistancia(newDistancia);
+        if(id >= 0 && id < listarutas.size()) {
+            Ruta ruta = listarutas.get(id);
+            //ruta.setDistancia(newDistancia);
             
+            try {
+                double distancia = Double.parseDouble(newDistancia);
+                ruta.setDistancia(distancia);
+            } catch (NumberFormatException e) {
+                System.out.println("La distancia debe ser un numero");
+                return;
+            }
             //ACTUALIZAR LOS DATOS CORRESPONDIENTES
             CompletarTabla();
             //GUARDA EL NUEVO DATO
-            JFileChooser selecArchivo = new JFileChooser();
-            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos csv", "csv");
-        
-            selecArchivo.setFileFilter(filtro);
-        
-            int seleccion = selecArchivo.showOpenDialog(this);
-        
-            if(seleccion == JFileChooser.APPROVE_OPTION) {
-                File archivo = selecArchivo.getSelectedFile();
-                GuardarArchivo(archivo);
-            }
+            GuardarArchivo();
+            GuardarArchivoBin();
         } else {
             JOptionPane.showMessageDialog(this, "ID  de ruta no valido");
         }
@@ -265,14 +279,14 @@ public class CargarRuta extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void CompletarTabla() {
-        DefaultTableModel mD = new DefaultTableModel(new String[]{"ID", "Inicio", "Fin", "Distancia"}, rutas.size());
+        DefaultTableModel mD = new DefaultTableModel(new String[]{"ID", "Inicio", "Fin", "Distancia"}, listarutas.size());
         
         jTable1.setModel(mD);
         
         TableModel tm = jTable1.getModel();
         
-        for(int i = 0; i < rutas.size(); i++) {
-            Ruta rut = rutas.get(i);
+        for(int i = 0; i < listarutas.size(); i++) {
+            Ruta rut = listarutas.get(i);
             tm.setValueAt(rut.getId(), i, 0);
             tm.setValueAt(rut.getInicio(), i, 1);
             tm.setValueAt(rut.getFinal(), i, 2);
@@ -280,7 +294,7 @@ public class CargarRuta extends javax.swing.JFrame {
         }
     }
 
-    private void CargarArchivo(File archivo) {
+    public void CargarArchivo(File archivo) {
         FileReader fr = null;
         BufferedReader br = null;
         
@@ -297,7 +311,7 @@ public class CargarRuta extends javax.swing.JFrame {
                     int id = Integer.parseInt(arreglo[0]);
                     //VER SI YA EXISTE RUTA
                     boolean existe = false;
-                    for(Ruta rut: rutas) {
+                    for(Ruta rut: listarutas) {
                         if(rut.getId() == id) {
                             existe = true;
                             break;
@@ -309,11 +323,16 @@ public class CargarRuta extends javax.swing.JFrame {
                         rut.setId(id);
                         rut.setInicio(arreglo[1]);
                         rut.setFinal(arreglo[2]);
-                        rut.setDistancia(arreglo[3]);
+
+                        try {
+                            double distancia = Double.parseDouble(arreglo[3]);
+                            rut.setDistancia(distancia);
+                        } catch (NumberFormatException e) {
+                            System.out.println("La distancia debe ser un numero");
+                            return;
+                        }
+                        listarutas.add(rut);
                     
-                        rutas.add(rut);
-                    
-                        //ACTUALIZA ID DE SER NECESARIO
                         if(id >= maxId) {
                             maxId = id + 1;
                         }
@@ -336,15 +355,17 @@ public class CargarRuta extends javax.swing.JFrame {
         }
     }
 
-    private void GuardarArchivo(File archivo) {
+    private void GuardarArchivo() {
         FileWriter fi = null;
         PrintWriter pw = null;
         
+        File archivoCSV = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\datosHistorial.bin");
+        
         try{
-            fi = new FileWriter(archivo, false);  //Permitira agregar datos
+            fi = new FileWriter(archivoCSV, false);  //Permitira agregar datos
             pw = new PrintWriter(fi);
             
-            for(Ruta rut: rutas) {
+            for(Ruta rut: listarutas) {
                 String linea = rut.getId() + "," + rut.getInicio() + "," + rut.getFinal() + "," + rut.getDistancia();
                 pw.println(linea);
             }
@@ -356,10 +377,37 @@ public class CargarRuta extends javax.swing.JFrame {
             try{
                 if(fi != null) {
                     fi.close();
-                    JOptionPane.showMessageDialog(null, "El archivo ha sido guardado correctamente...");
+                    //JOptionPane.showMessageDialog(null, "El archivo CSV ha sido guardado correctamente...");
                 }
             }
             catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    private void GuardarArchivoBin() {
+        ObjectOutputStream oos = null;
+        File archivo = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\rutas.bin");
+        
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(archivo));
+            
+            for(Ruta rut: listarutas) {
+                oos.writeObject(rut);
+            }
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                if(oos != null) {
+                    oos.close();
+                    JOptionPane.showMessageDialog(null, "El archivo ha sido guardado correctamente...");
+                }
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
