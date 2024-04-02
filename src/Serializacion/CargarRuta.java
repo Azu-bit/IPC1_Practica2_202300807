@@ -40,7 +40,7 @@ public class CargarRuta extends javax.swing.JFrame {
                     dispose(); // Cierra la ventana actual
                 }
             });     
-            
+       
     }
     
     @SuppressWarnings("unchecked")

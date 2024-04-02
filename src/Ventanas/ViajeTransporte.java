@@ -14,11 +14,9 @@ import javax.swing.JPanel;
 public class ViajeTransporte extends JFrame {
     
     ArrayList<Viaje> listaviajesGenerados = Undrive.Inicio.getListaViaje();
-    ArrayList<Transporte> listatransporte = Undrive.Inicio.getListaTransporte();
     ArrayList<Historial> historialgenerado = Undrive.Inicio.getListaHistorial();
     Lista listageneral = Undrive.Inicio.listas;
     private int nViajes = 0;
-    private Viaje viajeActual;
     
     public ViajeTransporte() {
         this.setSize(1000,700);

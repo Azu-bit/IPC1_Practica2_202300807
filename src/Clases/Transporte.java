@@ -1,5 +1,4 @@
 package Clases;
-
 import Clases.Piloto;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -27,6 +26,7 @@ public class Transporte extends JPanel implements Runnable, Serializable{
     private double distancia;
     private Piloto piloto;
     private transient Image imgTransporte;
+    private String pathImagen;
     
     private int x;
     private int y;
@@ -34,8 +34,6 @@ public class Transporte extends JPanel implements Runnable, Serializable{
     
     JButton btnrecarga1 = new JButton("Recargar gasolina");
     JLabel lbcombustible1 = new JLabel("");
-    //private Image imgTransporte;
-    private String pathImagen;
     
     public Transporte(String nombre, double comMaximo, double Gastocom, String pathImagen) {
         this.nombre = nombre;
@@ -186,43 +184,7 @@ public class Transporte extends JPanel implements Runnable, Serializable{
     public String getNombre() {
         return nombre;
     }
-    
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    
-    public String getPathImagen() {
-        return pathImagen;
-    }
 
-    public void setPathImagen(String pathImagen) {
-        this.pathImagen = pathImagen;
-    }
-    
-    public double getComMaximo() {
-        return comMaximo;
-    }
-
-    public void setComMaximo(double comMaximo) {
-        this.comMaximo = comMaximo;
-    }
-
-    public double getGastocom() {
-        return Gastocom;
-    }
-
-    public void setGastocom(double Gastocom) {
-        this.Gastocom = Gastocom;
-    }
-    
-    public double getComActual() {
-        return comActual;
-    }
-
-    public void setComActual(double comActual) {
-        this.comActual = comActual;
-    }
-    
     public double getComConsumido() {
         return comConsumido;
     }

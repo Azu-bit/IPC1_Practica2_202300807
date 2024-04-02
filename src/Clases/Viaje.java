@@ -13,13 +13,7 @@ public class Viaje implements Serializable{
     private Transporte transporte;
     private Piloto piloto;
     private LocalDateTime FHInicio;
-    
-    public Viaje() {
-        this.id = 0;
-        this.FHInicio = LocalDateTime.now();
-        this.distancia = 0.0;
-    }
-    
+
     public Viaje (String i, String f, double d, Transporte transporte) {
         this.Inicio = i;
         this.FIn = f;
@@ -27,13 +21,7 @@ public class Viaje implements Serializable{
         this.transporte = transporte;
         this.FHInicio = LocalDateTime.now();
     }
-    
-    public Viaje(LocalDateTime Fh, double distancia) {
-        this.id = ++idultimo;
-        this.FHInicio = Fh;
-        this.distancia = distancia;
-    }
-    
+
     public void AsignarPViaje(Piloto piloto) {
         if(piloto.Disponibilidad()) {
             this.piloto = piloto;
@@ -42,15 +30,7 @@ public class Viaje implements Serializable{
             System.out.println("El piloto " + piloto.getNombre() + " no esta disponible...");
         }
     }
-    
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    
     public String getInicio() {
         return Inicio;
     }
@@ -67,14 +47,6 @@ public class Viaje implements Serializable{
         this.FIn = FIn;
     }
 
-    public double getComConsumido() {
-        return this.transporte.getComConsumido();
-    }
-    
-    public String getFHFinal() {
-        return this.transporte.getFHFinal();
-    }
-    
     public double getDistancia() {
         return distancia;
     }
