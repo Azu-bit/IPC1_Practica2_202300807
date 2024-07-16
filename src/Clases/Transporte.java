@@ -174,7 +174,7 @@ public class Transporte extends JPanel implements Runnable, Serializable{
             }
             
             try {
-                Thread.sleep(50);
+                Thread.sleep(1);
             } catch(InterruptedException e) {
                 
             }

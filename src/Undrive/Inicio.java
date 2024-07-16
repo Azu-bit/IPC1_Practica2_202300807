@@ -55,6 +55,8 @@ public class Inicio {
         cargarRuta.setVisible(false);           
         //LISTA DE RUTAS
         cargarRuta.CargarArchivo(new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\rutas.csv")); // Debes proporcionar la ruta correcta del archivo csv
+        //cargarRuta.CargarArchivo(new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\archivo_entrada_practica2.csv"));
+        
         listarutas = cargarRuta.getRutas();
         
         listapiloto.add(new Piloto("Piloto 1"));

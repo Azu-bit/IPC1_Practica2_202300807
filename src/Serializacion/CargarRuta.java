@@ -303,8 +303,14 @@ public class CargarRuta extends javax.swing.JFrame {
             br = new BufferedReader(fr);
             
             String linea;
+            boolean esPrimeraLinea = true;
             
             while((linea = br.readLine()) != null) {
+                if(esPrimeraLinea) {
+                    esPrimeraLinea = false;
+                    continue;
+                }
+                
                 String arreglo[] = linea.split(",");
                 
                 if(arreglo.length >= 4) {
@@ -359,11 +365,14 @@ public class CargarRuta extends javax.swing.JFrame {
         FileWriter fi = null;
         PrintWriter pw = null;
         
-        File archivoCSV = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\datosHistorial.bin");
+        File archivoCSV = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\rutas.csv");
+        ////File archivo = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\archivo_entrada_practica2.csv");
         
         try{
             fi = new FileWriter(archivoCSV, false);  //Permitira agregar datos
             pw = new PrintWriter(fi);
+            
+            pw.println("ID, Inicio, Fin, Distancia");
             
             for(Ruta rut: listarutas) {
                 String linea = rut.getId() + "," + rut.getInicio() + "," + rut.getFinal() + "," + rut.getDistancia();
@@ -389,6 +398,7 @@ public class CargarRuta extends javax.swing.JFrame {
     private void GuardarArchivoBin() {
         ObjectOutputStream oos = null;
         File archivo = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\rutas.bin");
+        ////File archivo = new File("C:\\Users\\Manager\\OneDrive\\Escritorio\\INGENIERIA\\TERCER SEMESTRE\\IPC 1\\IPC1_Practica2_20230007\\src\\Serializacion\\archivo_entrada_practica2.bin");
         
         try {
             oos = new ObjectOutputStream(new FileOutputStream(archivo));

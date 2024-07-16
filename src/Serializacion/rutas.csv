@@ -1,5 +1,27 @@
-0,Santa Cruz del Quiche,Jocotenango,250.0
-1,Berberena,El Palmar,13.0
-2,Flores,Tiquisate,13.0
-3,Amatitlan,Mixco,10.0
-4,Salama,Poptun,27.0
+ID, Inicio, Fin, Distancia
+0,Flores,Tiquisate,40.0
+1,Amatitlan,Mixco,20.0
+2,El Palmar,Coban,80.0
+3,Milpas Altas,Berberena,12.0
+4,Salama,Huehuetenango,94.0
+5,Zacapa,Mazatenango,43.0
+6,El Tejar,San Andres Itzapa,17.0
+7,Zaragoza,Tiquisate,25.0
+8,San Lucas Sacatepequez,Mixco,11.0
+9,Huehuetenango,Salama,94.0
+10,Mixco,San Lucas Sacatepequez,11.0
+11,San Jose Pinula,Villa Nueva,16.0
+12,Salama,Poptun,27.0
+13,Santiago Sacatepequez,Guatemala,25.0
+14,El Progreso,Jalapa,16.0
+15,Chiquimula,Jocotenango,76.0
+16,Nueva Concepcion,Escuintla,11.0
+17,San Juan Sacatepequez,Mixco,10.0
+18,Villa Canales,Petapa,15.0
+19,Mixco,Guatemala,7.0
+20,Jalapa,El Progreso,16.0
+21,Coatepeque,La esperanza,74.0
+22,Antigua,Jocotenango,8.0
+23,Alotenango,Milpas Altas,12.0
+24,Berberena,El Palmar,48.0
+25,Santa Curz del Quiche,Jocotenango,40.0
